@@ -36,7 +36,6 @@ function getPossibleDots(email) {
     });
     res = res.join("");
 
-    // console.log(res);
     possibleDots.push(res);
   });
 
