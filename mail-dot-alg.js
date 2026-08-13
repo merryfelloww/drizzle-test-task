@@ -5,7 +5,14 @@
 function getPossibleDots(email) {
   const possibleDots = [email];
 
-  const username = email.split("@")[0];
+  const [username, domain] = email.split("@");
+  if (!username || !domain) {
+    throw new Error("Invalid email");
+  }
+  if (username.indexOf(".") !== -1) {
+    throw new Error("Username part should not contain any dots.");
+  }
+
   const numberOfGaps = username.split("").length - 1;
 
   const binaryPositions = [];
