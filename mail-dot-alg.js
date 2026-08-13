@@ -37,9 +37,9 @@ function getPossibleDots(email) {
 }
 
 const TEST_CASES = [
-  [
-    "test@gmail.com",
-    [
+  {
+    input: "test@gmail.com",
+    expected: [
       "test@gmail.com",
       "t.est@gmail.com",
       "te.st@gmail.com",
@@ -49,21 +49,30 @@ const TEST_CASES = [
       "te.s.t@gmail.com",
       "t.e.s.t@gmail.com",
     ],
-  ],
+  },
 ];
 
-test(TEST_CASES[0][1].sort(), getPossibleDots(TEST_CASES[0][0]).sort());
+test(
+  "gives all possible variants",
+  TEST_CASES[0].expected.sort(),
+  getPossibleDots(TEST_CASES[0].input).sort(),
+);
 
 const longEmail = "somelongemail@example.com";
 const numberOfVariants = 2 ** (longEmail.split("@")[0].split("").length - 1);
-test(numberOfVariants, getPossibleDots(longEmail).length);
+test(
+  "number of variants on long usernames matches",
+  numberOfVariants,
+  getPossibleDots(longEmail).length,
+);
 
-// ------------------------------
-function test(expected, actual) {
+// ---
+function test(name, expected, actual) {
   const expectedString = JSON.stringify(expected, null, 2);
   const actualString = JSON.stringify(actual, null, 2);
   if (expectedString === actualString) {
-    console.log("✅ Pass!");
+    console.log(`✅ "${name}" test passes!`);
+    return;
   }
 
   console.log(`Expected: ${expectedString}, got: ${actualString}`);
